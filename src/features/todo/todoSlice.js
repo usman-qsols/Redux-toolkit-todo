@@ -27,15 +27,21 @@ export const todoSlice = createSlice({
     removeTodo: (state, action) => {
       state.todos = state.todos.filter((todo) => todo.id !== action.payload);
     },
+    // updateTodo: (state, action) => {
+    //   state.todos = state.todos.map((todo) => {
+    //     if (todo.id === action.payload.id) {
+    //       return (todo.text = action.payload.text);
+    //     }
+    //     return todo;
+    //   });
+    // },
+
     updateTodo: (state, action) => {
-      state.todos = state.todos.map((todo) => {
-        if (todo.id === action.payload.id) {
-          return {
-            text: action.payload.text,
-          };
-        }
-        return todo;
-      });
+      const { id, text } = action.payload;
+      const todoToUpdate = state.todos.find((todo) => todo.id === id);
+      if (todoToUpdate) {
+        todoToUpdate.text = text;
+      }
     },
   },
 });
